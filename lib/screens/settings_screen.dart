@@ -1,61 +1,18 @@
-import 'package:sac_app/widgets/sac_logo_text.dart';
-
 import '../exports.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({Key? key}) : super(key: key);
+  final String name, email;
+  const UserProfileScreen({Key? key, required this.name, required this.email})
+      : super(key: key);
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
-  String name = 'unknown';
-  String email = 'unknown@email.com';
-  bool isLoggedIn = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkLoginStatus();
-  }
-
-  Future<void> _checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
-      name = prefs.getString('user_name') ?? '';
-      email = prefs.getString('user_email') ?? '';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return isLoggedIn ? _buildUserProfile() : _buildUserLogin();
-  }
-
-  Widget _buildUserLogin() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SACLogoText(width: 250),
-          const SizedBox(
-            height: 30,
-          ),
-          OutlinedButton.icon(
-            onPressed: () {
-              _signIn(context);
-            },
-            icon: Image.asset(
-              googleImagePath,
-              height: 20,
-            ),
-            label: const Text(googleSignIn),
-          ),
-        ],
-      ),
-    );
+    return _buildUserProfile();
   }
 
   Widget _buildUserProfile() {
@@ -69,8 +26,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         children: [
           const SizedBox(height: 20),
           ProfileTile(
-            userEmail: email,
-            userName: name,
+            userName: widget.name,
+            userEmail: widget.email,
           ),
           const SizedBox(height: 20),
           PreferenceListView(groupedItems: groupedItems),
@@ -114,10 +71,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setBool('isLoggedIn', false);
             await GoogleSignInApi.logout();
-
-            setState(() {
-              isLoggedIn = false;
-            });
+            Navigator.popAndPushNamed(context, Home.id);
           }),
     ];
   }
@@ -157,10 +111,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setBool('isLoggedIn', false);
             await GoogleSignInApi.logout();
-
-            setState(() {
-              isLoggedIn = false;
-            });
+            Navigator.popAndPushNamed(context, Home.id);
           }),
     ];
   }
@@ -209,24 +160,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         subtitle: 'B2022',
       ),
     ];
-  }
-
-  Future<void> _signIn(BuildContext context) async {
-    final user = await GoogleSignInApi.login();
-    if (user == null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Not able to login')));
-    } else {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isLoggedIn', true);
-      await prefs.setString('user_name', user.displayName ?? '');
-      await prefs.setString('user_email', user.email);
-      setState(() {
-        isLoggedIn = true;
-        name = user.displayName ?? '';
-        email = user.email;
-      });
-    }
   }
 }
 
