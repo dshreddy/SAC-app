@@ -18,6 +18,7 @@ export 'screens/add_project_screen.dart';
 export 'screens/project_info_screen.dart';
 export 'screens/project_screen.dart';
 export 'screens/main.dart';
+export 'screens/login_screen.dart';
 export 'screens/club_screen.dart';
 export 'screens/club_registration.dart';
 export 'screens/calender_screen.dart';
@@ -32,6 +33,7 @@ export 'widgets/nav_bar_destination.dart';
 export 'widgets/announcement_card.dart';
 export 'widgets/pref_info_list.dart';
 export 'widgets/calender_widget.dart';
+export 'widgets/sac_logo_text.dart';
 export 'widgets/cards.dart';
 
 export 'models/Project.dart';

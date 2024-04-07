@@ -16,13 +16,32 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool isDark = false;
   int currentPageIndex = 0;
+  String name = '', email = '';
 
   final Map<int, Widget> bodyWidgets = {
     0: HomeScreen(),
     1: CalenderScreen(),
     2: OngoingProjectScreen(),
-    3: UserProfileScreen(),
+    3: LoginScreen(),
   };
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPref();
+  }
+
+  Future<void> _loadPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+      name = prefs.getString('user_name') ?? '';
+      email = prefs.getString('user_email') ?? '';
+      bodyWidgets[3] = isLoggedIn
+          ? UserProfileScreen(name: name, email: email)
+          : const LoginScreen();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +88,8 @@ class _HomeState extends State<Home> {
               setState(() {
                 isDark = !isDark;
               });
-              Provider.of<GlobalDataProvider>(context, listen: false).toggleTheme();
+              Provider.of<GlobalDataProvider>(context, listen: false)
+                  .toggleTheme();
             },
             icon: const Icon(Icons.wb_sunny_outlined),
             selectedIcon: const Icon(Icons.brightness_2_outlined),
