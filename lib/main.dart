@@ -1,5 +1,6 @@
 import '../exports.dart';
 
+// comment
 // This is the starting point of our app, the first function that will be run when we start the app
 void main() {
   runApp(
