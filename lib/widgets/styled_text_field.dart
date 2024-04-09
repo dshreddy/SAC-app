@@ -21,6 +21,8 @@ class StyledTextField extends StatelessWidget {
           hintText: text,
           contentPadding: const EdgeInsets.all(16),
           filled: true,
+          fillColor: kPaleOrangeColor,
+          hintStyle: TextStyle(color: kGrey)
         ),
       ),
     );

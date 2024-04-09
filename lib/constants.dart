@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sac_app/exports.dart';
 
 const primaryColor = Color.fromARGB(255, 240, 134, 32);
-
+const kPaleOrangeColor=const Color(0xFFFAC7AA);
+const kGrey=const Color(0xFF5E6060);
 //Image Paths
 const lightLogoPath = 'assets/logo/light.png';
 const darkLogoPath = 'assets/logo/dark.png';

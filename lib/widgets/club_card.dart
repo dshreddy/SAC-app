@@ -4,20 +4,24 @@ import '../exports.dart';
 
 class ClubCard extends StatelessWidget {
   // Takes the following data
+
   final String clubName;
   final String clubIntro;
   final String imagePath;
   final String clubHead;
   final String? headContactNum;
   final String clubEmail;
+  final String clubInfo;
 
   const ClubCard({
+
     required this.clubName,
     required this.clubIntro,
     required this.imagePath,
     required this.clubHead,
     required this.clubEmail,
     this.headContactNum,
+    required this.clubInfo,
   });
 
   @override
@@ -29,6 +33,7 @@ class ClubCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ClubScreen(
+              clubInfo: clubInfo,
               clubName: clubName,
               clubImage: imagePath,
               clubHead: clubHead,
@@ -41,7 +46,7 @@ class ClubCard extends StatelessWidget {
       child: SizedBox(
         width: 220,
         child: Card(
-          // color: const Color(0xFFFFF5E0),
+          color: kPaleOrangeColor,
           margin: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -58,14 +63,14 @@ class ClubCard extends StatelessWidget {
               ),
               Text(
                 clubName,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w800,
+                style: GoogleFonts.robotoSlab(
+                  // fontWeight: FontWeight.w800,
                   fontSize: 20,
                 ),
               ),
               Text(
                 clubIntro,
-                style: const TextStyle(
+                style: GoogleFonts.nunito(
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                 ),

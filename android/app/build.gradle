@@ -53,9 +53,9 @@ android {
 
     signingConfigs{
         debug {
-            keyAlias "testapp"
+            keyAlias "sac"
             keyPassword "android"
-            storeFile file("testapp.jks")
+            storeFile file("debugKey.jks")
             storePassword "android"
         }
     }

@@ -37,3 +37,4 @@ export 'animations/slide_fade_anim.dart';
 export 'util.dart';
 
 export 'widgets/styled_text_field.dart';
+export 'package:google_fonts/google_fonts.dart';
